@@ -63,11 +63,6 @@ if FABRIC_BUILD_TYPE == 'Debug' and FABRIC_BUILD_OS == 'Windows':
   env.Depends( copyPdb, installedModule )
   env.AlwaysBuild(copyPdb)
 
-# todo: install the python client
-
-# # install extensions
-# nukeFiles.extend(installExtensions(os.path.join(STAGE_DIR.abspath, 'Exts'), env, installedModule))
-
 alias = env.Alias('splicenuke', nukeFiles)
 spliceData = (alias, nukeFiles)
 Return('spliceData')
