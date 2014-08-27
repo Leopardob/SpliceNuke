@@ -49,7 +49,7 @@ To inform scons where to find the Fabric Core includes as well as the thirdparty
 * FABRIC_CAPI_DIR: Should point to Fabric Engine's Core folder.
 * BOOST_DIR: Should point to the boost root folder (containing boost/ (includes) and lib/ for the static libraries).
 * NUKE_INCLUDE_DIR: The include folder of the TheFoundry Nuke installation. (for example: C:\Program Files\Nuke7.0v8\include)
-* NUKE_LIB_DIR: The library folder of the TheFoundry Nuke installation. (for example: C:\Program Files\Nuke7.0v8\lib)
+* NUKE_LIB_DIR: The main folder of the TheFoundry Nuke installation. (for example: C:\Program Files\Nuke7.0v8)
 * NUKE_VERSION: The Nuke version to use including eventual SP suffix. (for example: 7.0v8)
 
 The temporary files will be built into the *.build* folder, while the structured output files will be placed in the *.stage* folder.
