@@ -7,7 +7,11 @@ Fabric Splice for Nuke allows you to make use of the Fabric Core inside of Nuke 
 Repository Status
 =================
 
-This repository will be maintained and kept up to date by Fabric Technologies to match the latest Fabric Core / Fabric Splice.
+This Splice interation is not officially maintained by Fabric Software. 
+
+The last known version of Nuke compatible is 7.0v8.
+
+The last known version of Fabric Splice compatible is 1.13.0.
 
 Supported platforms
 ===================
