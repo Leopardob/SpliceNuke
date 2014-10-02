@@ -4,7 +4,7 @@
 
 import os, sys, platform, copy
 
-Import('parentEnv', 'FABRIC_CAPI_DIR', 'FABRIC_SPLICE_VERSION', 'STAGE_DIR', 'FABRIC_BUILD_OS', 'FABRIC_BUILD_TYPE', 'NUKE_INCLUDE_DIR', 'NUKE_LIB_DIR','NUKE_VERSION', 'sharedCapiFlags', 'spliceFlags')
+Import('parentEnv', 'FABRIC_DIR', 'FABRIC_SPLICE_VERSION', 'STAGE_DIR', 'FABRIC_BUILD_OS', 'FABRIC_BUILD_TYPE', 'NUKE_INCLUDE_DIR', 'NUKE_LIB_DIR','NUKE_VERSION', 'sharedCapiFlags', 'spliceFlags')
 
 env = parentEnv.Clone()
 
@@ -35,9 +35,9 @@ target = 'FabricSpliceNuke' + NUKE_VERSION
 
 if FABRIC_BUILD_OS == 'Windows':
   target += '.dll'
-elif FABRIC_BUILD_OS == 'Linux':
+if FABRIC_BUILD_OS == 'Linux':
   target += '.so'
-else:
+if FABRIC_BUILD_OS == 'Darwin':
   target += '.dylib'
 
 nukeModule = env.SharedLibrary(target = target, source = Glob('*.cpp'))
@@ -47,12 +47,13 @@ nukeFiles = []
 installedModule = env.Install(STAGE_DIR, nukeModule)
 nukeFiles.append(installedModule[0])
 
-nukeFiles.append(env.Install(STAGE_DIR, env.File('license.txt')))
-
 # also install the FabricCore dynamic library
-nukeFiles.append(env.Install(STAGE_DIR, env.Glob(os.path.join(FABRIC_CAPI_DIR, 'lib', '*.so'))))
-nukeFiles.append(env.Install(STAGE_DIR, env.Glob(os.path.join(FABRIC_CAPI_DIR, 'lib', '*.dylib'))))
-nukeFiles.append(env.Install(STAGE_DIR, env.Glob(os.path.join(FABRIC_CAPI_DIR, 'lib', '*.dll'))))
+if FABRIC_BUILD_OS == 'Linux':
+  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,$ORIGIN/../../../../lib/')])
+if FABRIC_BUILD_OS == 'Darwin':
+  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,@loader_path/../../../..')])
+if FABRIC_BUILD_OS == 'Windows':
+  nukeFiles.append(env.Install(STAGE_DIR, env.Glob(os.path.join(FABRIC_DIR, 'lib', '*.dll'))))
 
 # install PDB files on windows
 if FABRIC_BUILD_TYPE == 'Debug' and FABRIC_BUILD_OS == 'Windows':
