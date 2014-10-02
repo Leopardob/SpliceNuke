@@ -49,9 +49,9 @@ nukeFiles.append(installedModule[0])
 
 # also install the FabricCore dynamic library
 if FABRIC_BUILD_OS == 'Linux':
-  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,$ORIGIN/../../../../lib/')])
+  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,$ORIGIN/../../../lib/')])
 if FABRIC_BUILD_OS == 'Darwin':
-  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,@loader_path/../../../..')])
+  env.Append(LINKFLAGS = [Literal('-Wl,-rpath,@loader_path/../../..')])
 if FABRIC_BUILD_OS == 'Windows':
   nukeFiles.append(env.Install(STAGE_DIR, env.Glob(os.path.join(FABRIC_DIR, 'lib', '*.dll'))))
 
