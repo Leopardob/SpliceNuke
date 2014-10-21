@@ -31,7 +31,7 @@ env.Append(CPPDEFINES = ["_SPLICE_NUKE_VERSION="+str(NUKE_VERSION[:4])])
 env.MergeFlags(sharedCapiFlags)
 env.MergeFlags(spliceFlags)
 
-target = 'FabricSpliceNuke' + NUKE_VERSION
+target = 'spliceGeometry'
 
 if FABRIC_BUILD_OS == 'Windows':
   target += '.dll'
