@@ -46,7 +46,7 @@ To inform scons where to find the Fabric Core includes as well as the thirdparty
 * FABRIC_BUILD_ARCH: The architecture you are building for (x86, x86_64)
 * FABRIC_BUILD_TYPE: The optimization type (Release, Debug)
 * FABRIC_SPLICE_VERSION: Refers to the version you want to build. Typically the name of the branch (for example 1.13.0)
-* FABRIC_CAPI_DIR: Should point to Fabric Engine's Core folder.
+* FABRIC_DIR: Should point to Fabric Engine's installation folder.
 * BOOST_DIR: Should point to the boost root folder (containing boost/ (includes) and lib/ for the static libraries).
 * NUKE_INCLUDE_DIR: The include folder of the TheFoundry Nuke installation. (for example: C:\Program Files\Nuke7.0v8\include)
 * NUKE_LIB_DIR: The main folder of the TheFoundry Nuke installation. (for example: C:\Program Files\Nuke7.0v8)
