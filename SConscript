@@ -4,7 +4,7 @@
 
 import os, sys, platform, copy
 
-Import('parentEnv', 'FABRIC_DIR', 'FABRIC_SPLICE_VERSION', 'STAGE_DIR', 'FABRIC_BUILD_OS', 'FABRIC_BUILD_TYPE', 'NUKE_INCLUDE_DIR', 'NUKE_LIB_DIR','NUKE_VERSION', 'sharedCapiFlags', 'spliceFlags')
+Import('parentEnv', 'FABRIC_DIR', 'FABRIC_SPLICE_VERSION', 'STAGE_DIR', 'FABRIC_BUILD_OS', 'FABRIC_BUILD_TYPE', 'NUKE_INCLUDE_DIR', 'NUKE_LIB_DIR','NUKE_VERSION', 'sharedCapiFlags', 'spliceFlags', 'BOOST_DIR')
 
 env = parentEnv.Clone()
 
@@ -39,6 +39,27 @@ if FABRIC_BUILD_OS == 'Linux':
   target += '.so'
 if FABRIC_BUILD_OS == 'Darwin':
   target += '.dylib'
+
+boostFlags = {
+  'CPPPATH': [BOOST_DIR],
+  'LIBPATH': [os.path.join(BOOST_DIR, 'lib')],
+}
+if FABRIC_BUILD_OS == 'Windows':
+  if FABRIC_BUILD_TYPE == 'Debug':
+    boostFlags['LIBS'] = [
+      'libboost_thread-vc100-mt-sgd-1_55.lib',
+      'libboost_system-vc100-mt-sgd-1_55.lib',
+      'libboost_filesystem-vc100-mt-sgd-1_55.lib'
+      ]
+  else:
+    boostFlags['LIBS'] = [
+      'libboost_thread-vc100-mt-s-1_55.lib',
+      'libboost_system-vc100-mt-s-1_55.lib',
+      'libboost_filesystem-vc100-mt-s-1_55.lib'
+      ]
+else:
+  boostFlags['LIBS'] = ['boost_thread','boost_system','boost_filesystem']
+env.MergeFlags(boostFlags)
 
 nukeModule = env.SharedLibrary(target = target, source = Glob('*.cpp'))
 
